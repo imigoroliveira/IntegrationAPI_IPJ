@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 'passwd22'
+    volumes:  
+      - ./data:/var/lib/mysql
+    restart: always
+
+  apione: 
+    build: .
+    container_name: node-container
+    restart: always 
+    volumes:
+      - ./apione:/home/node/app
+    ports:
+      - '9001:9001'
