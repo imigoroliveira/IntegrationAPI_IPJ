@@ -1,18 +1,23 @@
 version: '3.7'
-services:
-  db:
-    image: mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: 'passwd22'
-    volumes:  
-      - ./data:/var/lib/mysql
-    restart: always
 
-  apione: 
+services:
+  apione:
     build: .
-    container_name: node-container
-    restart: always 
+    container_name: node-server
+    entrypoint: ./.docker/entrypointNode.sh
     volumes:
-      - ./apione:/home/node/app
+      - .:/home/node/apione
+      - /home/node/api/node_modules
     ports:
-      - '9001:9001'
+      - '3333:3333'
+
+  db:
+    image: mysql:8.0.25
+    container_name: database
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./.docker/dbdata:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: 'root'
+      MYSQL_ROOT_PASSWORD: 'passwd22'

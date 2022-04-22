@@ -1,10 +1,10 @@
 FROM node:lts-alpine
 
-RUN mkdir -p /home/node/api/node_modules && chown -R node:node /home/node/api
+RUN mkdir -p /home/node/apione/node_modules && chown -R node:node /home/node/apione
 
-WORKDIR /home/node/api
+WORKDIR /home/node/apione
 
-COPY package.json yarn.* ./
+COPY /apione/package.json yarn.* ./
 
 USER node
 
