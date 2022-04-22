@@ -1,5 +1,14 @@
 # Resumo do projeto
 
+Para iniciar o projeto, execute:
+
+docker-compose down -v
+
+E depois:
+
+docker-compose up --build -d
+
+
 ## A princípio, o projeto terá duas API:
 - A primeira realiza um CRUD de usuário conforme o mesmo informar e realiza uma requisição de para a segunda API informando um “título”.
 - A segunda, recebe a requisição da primeira, utiliza os dados para realizar uma requisição para OMDb API, que irá retornar dados para serem retornados na requisição da primeira API.
