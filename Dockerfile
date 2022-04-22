@@ -1,10 +1,13 @@
-WORKDIR /apione
+FROM node:lts-alpine
 
-COPY package*.json ./
+RUN mkdir -p /home/node/api/node_modules && chown -R node:node /home/node/api
 
-RUN npm install
+WORKDIR /home/node/api
 
-COPY . .
+COPY package.json yarn.* ./
 
-EXPOSE 8080
-CMD [ "node", "server.js" ]
+USER node
+
+COPY --chown=node:node . .
+
+EXPOSE 3333
