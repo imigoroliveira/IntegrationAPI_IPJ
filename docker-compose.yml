@@ -1,0 +1,34 @@
+version: "3.7"
+
+services:
+  db:
+    image: mysql:8.0.25
+    container_name: mysql-container
+    environment:
+      MYSQL_DATABASE: "api_database"
+      MYSQL_ROOT_PASSWORD: "passwd22"
+    volumes:
+      - ./db/data:/var/lib/mysql
+    restart: always
+
+  apione:
+    build:
+      context: "./apione"
+    container_name: node-container
+    restart: always
+    volumes:
+      - ./apione:/home/node/app
+    ports:
+      - "9001:9001"
+
+  apitwo:
+    build:
+      context: "./apitwo"
+    container_name: php-container
+    restart: always
+    volumes:
+      - ./apitwo:/home/node/app
+    ports:
+      - "9000:9000"
+    depends_on:
+      - db
