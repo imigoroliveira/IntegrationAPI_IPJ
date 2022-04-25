@@ -48,6 +48,11 @@ apitwo/node_modules
 /apitwo/node_modules
 apitwo/node_modules/*
 /apitwo/node_modules/*
+
+db/data/
+db/data/
+db/data/*
+
 jspm_packages/
 
 # TypeScript v1 declaration files
