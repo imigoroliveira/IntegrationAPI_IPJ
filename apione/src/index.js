@@ -18,22 +18,22 @@ app.use(cors());
 app.get('/', async (req, res) => {
   query = req.query;
 
-  if (req.query.title) {
+  if (query.title) {
     return await requests.get(`/?t=${query.title}&apikey=ccd090fe`)
       .then(response => {
         res.status(200).send(response.data);
       })
-      .catch(response => {
-        res.status(404).send(response.data);
+      .catch(error => {
+        res.status(404).send(error.data);
       });
   }
-  if (req.query.id) {
+  if (query.id) {
     return await requests.get(`/?i=${query.id}&apikey=ccd090fe`)
       .then(response => {
         res.status(200).send(response.data);
       })
-      .catch(response => {
-        res.status(404).send(response.data);
+      .catch(error => {
+        res.status(404).send(error.data);
       });
   }
   res.send(400, { Response: "Sintaxe da requisição inválida"});
