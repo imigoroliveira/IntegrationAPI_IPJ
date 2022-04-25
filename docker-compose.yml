@@ -2,10 +2,11 @@ version: "3.7"
 
 services:
   db:
-    image: mysql:8.0.25
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
     container_name: mysql-container
     environment:
-      MYSQL_DATABASE: "api_database"
+      MYSQL_DATABASE: "ipj_databse"
       MYSQL_ROOT_PASSWORD: "passwd22"
     volumes:
       - ./db/data:/var/lib/mysql
@@ -32,3 +33,4 @@ services:
       - "9000:9000"
     depends_on:
       - db
+      - apione
