@@ -15,11 +15,28 @@ const router = express.Router();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
-app.get('/', (req, res) => { res.send('Hello World!'); });
+app.get('/', async (req, res) => {
+  query = req.query;
 
-app.get('/movie/:title', async (req, res) => {
-    title = req.params.title;
-    await requests.get(`/?t=${title}&apikey=ccd090fe`).then(response => res.send(response.data));
+  if (req.query.title) {
+    return await requests.get(`/?t=${query.title}&apikey=ccd090fe`)
+      .then(response => {
+        res.status(200).send(response.data);
+      })
+      .catch(response => {
+        res.status(404).send(response.data);
+      });
+  }
+  if (req.query.id) {
+    return await requests.get(`/?i=${query.id}&apikey=ccd090fe`)
+      .then(response => {
+        res.status(200).send(response.data);
+      })
+      .catch(response => {
+        res.status(404).send(response.data);
+      });
+  }
+  res.send(400, { Response: "Sintaxe da requisição inválida"});
 })
 
 app.use(router);
