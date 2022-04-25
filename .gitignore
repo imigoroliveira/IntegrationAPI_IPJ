@@ -81,6 +81,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
+apione/.env
 .env
 .env.test
 .env*.local
