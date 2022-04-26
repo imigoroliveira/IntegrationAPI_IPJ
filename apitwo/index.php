@@ -1,17 +1,36 @@
-<?php
-require __DIR__ . "/inc/bootstrap.php";
+<?php 
 
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$uri = explode( '/', $uri );
+require_once "Users.php";
 
-if ((isset($uri[2]) && $uri[2] != 'user') || !isset($uri[3])) {
-    header("HTTP/1.1 404 Not Found");
-    exit();
+header("Content-Type: application/json");
+
+$data = [];
+
+$fn = $_REQUEST['fn'] ?? null;
+$id = $_REQUEST['id'] ?? 0;
+$email = $_REQUEST['email'] ?? null;
+
+$user = new Users($id, $email);
+$user->setId($id);
+
+if($fn === "create" && $email !== null){
+    $user->setEmail($email);
+    $data["user"] = $user->create();
+}
+else if($fn === "read"){
+    $data["user"] = $user->read();
 }
 
-require PROJECT_ROOT_PATH . "/Controller/Api/UserController.php";
+else if($fn === "update" && $email !== null){
+    $user->setEmail($email);
+    $data["user"] = $user->update();
+}
 
-$objFeedController = new UserController();
-$strMethodName = $uri[3] . 'Action';
-$objFeedController->{$strMethodName}();
+else if($fn === "delete" && $id > 0){
+    $data["user"] = $user->delete();
+}
+
+
+die(json_encode($data));
+
 ?>
