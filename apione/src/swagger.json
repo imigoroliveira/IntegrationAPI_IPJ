@@ -1,0 +1,146 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Filmes",
+    "description": "Esta API recebe uma requisição e usa os parâmetros para realizar outra requisição para OMDb API e irá retornar os dados da resposta desta.",
+    "termsOfService": "http://localhost:9001/termos",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/movie/": {
+      "get": {
+        "summary": "Busca de filme por Título",
+        "description": "Essa é a rota responsável por buscar os filmes pelo título",
+        "tags": ["Filmes"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "title",
+            "type": "string",
+            "description": "O título do filme a ser encontrado."
+          },
+          {
+            "in": "query",
+            "name": "id",
+            "type": "string",
+            "description": "O IMDb ID do filme a ser encontrado."
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Filme não encontrado!"
+          },
+          "400": {
+            "description": "Parametro IMDb ID ou Título inválido"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Movie"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Movie": {
+        "type": "object",
+        "properties": {
+          "Title": {
+            "type": "string"
+          },
+          "Year": {
+            "type": "string"
+          },
+          "Rated": {
+            "type": "string"
+          },
+          "Released": {
+            "type": "string"
+          },
+          "Runtime": {
+            "type": "string"
+          },
+          "Genre": {
+            "type": "string"
+          },
+          "Director": {
+            "type": "string"
+          },
+          "Writer": {
+            "type": "string"
+          },
+          "Actors": {
+            "type": "string"
+          },
+          "Plot": {
+            "type": "string"
+          },
+          "Language": {
+            "type": "string"
+          },
+          "Country": {
+            "type": "string"
+          },
+          "Awards": {
+            "type": "string"
+          },
+          "Poster": {
+            "type": "string"
+          },
+          "Rating": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Source": {
+                  "type": "string"
+                },
+                "Value": {
+                  "type": "string"
+                }
+              } 
+            }
+          },
+          "Metascore": {
+            "type": "string"
+          },
+          "imdbRating": {
+            "type": "string"
+          },
+          "imdbVotes": {
+            "type": "string"
+          },
+          "imdbID": {
+            "type": "string"
+          },
+          "Type": {
+            "type": "string"
+          },
+          "DVD": {
+            "type": "string"
+          },
+          "BoxOffice": {
+            "type": "string"
+          },
+          "Production": {
+            "type": "string"
+          },
+          "Website": {
+            "type": "string"
+          },
+          "Response": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

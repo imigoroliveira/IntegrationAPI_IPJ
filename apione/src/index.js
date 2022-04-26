@@ -1,25 +1,34 @@
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const axios = require('axios');
+import express from'express';
+import cors from'cors';
+import axios from'axios';
+import swaggerUI from'swagger-ui-express';
+import swaggerDocs from "./swagger.json";
 
 const requests = axios.create({
   // Defina URL da sua API aqui
   baseURL: 'http://www.omdbapi.com',
   headers: { 'Content-Type': 'application/json' },
 });
-
-const app = express();
 const router = express.Router();
 
-app.use(bodyParser.urlencoded({ extended: false }));
+const apikey = "ccd090fe";
+
+const app = express();
+app.use(express.json());
 app.use(cors());
 
-app.get('/', async (req, res) => {
-  query = req.query;
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs))
+app.use("/termos", (req, res) => {
+  return res.json({
+    message: "Termos de serviço",
+  })
+})
+
+app.get('/movie/', async (req, res) => {
+  const query = req.query;
 
   if (query.title) {
-    return await requests.get(`/?t=${query.title}&apikey=ccd090fe`)
+    return await requests.get(`/?t=${query.title}&apikey=${apikey}`)
       .then(response => {
         res.status(200).send(response.data);
       })
@@ -40,4 +49,4 @@ app.get('/', async (req, res) => {
 })
 
 app.use(router);
-app.listen(9001);
+app.listen(9001, () => console.log("O servidor está rodando na porta 9001"));
