@@ -4,26 +4,32 @@ import axios from'axios';
 import swaggerUI from'swagger-ui-express';
 import swaggerDocs from "./swagger.json";
 
+// Configuração do Axios
 const requests = axios.create({
-  // Defina URL da sua API aqui
   baseURL: 'http://www.omdbapi.com',
   headers: { 'Content-Type': 'application/json' },
 });
-const router = express.Router();
 
+// Chave para requisições
 const apikey = "ccd090fe";
 
+// Configuração da API
+const router = express.Router();
 const app = express();
 app.use(express.json());
 app.use(cors());
 
+// Rota do Swagger
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs))
+
+// Rota termos de serviço
 app.use("/termos", (req, res) => {
   return res.json({
     message: "Termos de serviço",
   })
 })
 
+// Rota principal
 app.get('/movie/', async (req, res) => {
   const query = req.query;
 
@@ -37,7 +43,7 @@ app.get('/movie/', async (req, res) => {
       });
   }
   if (query.id) {
-    return await requests.get(`/?i=${query.id}&apikey=ccd090fe`)
+    return await requests.get(`/?i=${query.id}&apikey=${apikey}`)
       .then(response => {
         res.status(200).send(response.data);
       })
