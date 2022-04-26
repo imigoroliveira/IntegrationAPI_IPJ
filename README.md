@@ -31,6 +31,6 @@ API Secundária (NodeJs):
 
 ### Contribuidores:
 ------------
-Ademilson Bregonde:
+Ademilson Bregonde: https://github.com/ademilsonbregonde
 Igor Oliveira: https://github.com/imigoroliveira
 Jorge de Oliveira: https://github.com/Jorge-Neto
