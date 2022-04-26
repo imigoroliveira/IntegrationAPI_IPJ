@@ -8,7 +8,7 @@ $data = [];
 
 $fn = $_REQUEST['fn'] ?? null;
 $id = $_REQUEST['id'] ?? 0;
-$email = $_REQUEST['email'] ?? null;
+$email = $_REQUEST['email'] ?? "";
 
 $user = new Users($id, $email);
 $user->setId($id);

@@ -26,7 +26,7 @@ class Users {
 
     public function create() :array
     {
-        $conn = $this->connection();
+        $con = $this->connection();
         $smtmt = $con->prepare("INSERT INTO users (id, email) VALUES (:id, :email)");
         $smtmt->bindValue(':_id', $this->getId(), \PDO::PARAM_INT);
         $smtmt->bindValue(':_email', $this->getEmail(), \PDO::PARAM_STR);
@@ -40,7 +40,7 @@ class Users {
 
     public function read() :array
     {
-        $conn = $this->connection();
+        $con = $this->connection();
         if($this->getId() === 0)
         {
             $smtmt = $con->prepare("SELECT * FROM users ");
@@ -62,7 +62,7 @@ class Users {
 
     public function update() :array
     {
-        $conn = $this->connection();
+        $con = $this->connection();
         $smtmt = $con->prepare("UPDATE users (email) VALUES (:_email) WHERE id = :_id");
         $smtmt->bindValue(':_id', $this->getId(), \PDO::PARAM_INT);
         $smtmt->bindValue(':_email', $this->getEmail(), \PDO::PARAM_STR);
@@ -75,7 +75,7 @@ class Users {
     public function delete() :array
     {
         $personal = $this-> read();
-        $conn = $this->connection();
+        $con = $this->connection();
         $smtmt = $con->prepare("DELETE from users WHERE id = :_id");
         $smtmt->bindValue(':_id', $this->getId(), \PDO::PARAM_INT);
 
