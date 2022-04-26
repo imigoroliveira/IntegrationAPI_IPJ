@@ -1,5 +1,13 @@
 FROM node:14-slim
-WORKDIR /home/node/app
-COPY apione/package*.json ./
+
+WORKDIR ./apione:/home/node/app
+
+COPY package*.json ./
+
 RUN npm install
+
+COPY . .
+
+EXPOSE 9001
+
 CMD npm start
